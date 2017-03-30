@@ -1,7 +1,17 @@
 $gray1: #f5f5f5;
 $gray2: #e5e5e5;
 $textbold: #444444;
-$textplain: #5c5c5c;
+$textmid: #5c5c5c;
+$textplain: #777777;
 
+body {
+  background-color: white;
+}
+
+header {
+  text-align: center;
+  h2 { color: $textbold }
+  h4 { color: $textmid }
+}
 
 
