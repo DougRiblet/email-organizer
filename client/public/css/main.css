@@ -1,0 +1,11 @@
+body {
+  background-color: white;
+  margin: 0;
+  padding: 0; }
+
+header {
+  text-align: center; }
+  header h2 {
+    color: #444444; }
+  header h4 {
+    color: #5c5c5c; }

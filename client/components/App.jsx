@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from './Header'
 
 export default class App extends React.Component {
   constructor (props) {
@@ -11,12 +12,11 @@ export default class App extends React.Component {
 
   render () {
     return (
-      <div id="outershell">
+      <div id='outershell'>
         <Header
           appTitle={this.state.appTitle}
           appTagline={this.state.appTagline}
         />
-        
       </div>
     )
   }
