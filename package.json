@@ -4,8 +4,25 @@
   "description": "Email organizer app using ReactJS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./server/app.js",
+    "build": "webpack --watch",
+    "lint": "standard",
+    "build-css": "node-sass client/scss/main.scss client/public/css/main.css"
   },
   "author": "Doug Riblet",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "node-sass": "^4.5.2",
+    "standard": "^9.0.2",
+    "webpack": "^2.3.2"
+  }
 }
