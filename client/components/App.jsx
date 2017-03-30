@@ -2,8 +2,8 @@ import React from 'react'
 import Header from './Header'
 
 export default class App extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
       appTitle: 'Your Email Organized',
       appTagline: 'You can recategorize your senders or move them to your inbox by unchecking the box next to the sender\'s name.'
