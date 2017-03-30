@@ -10,3 +10,8 @@ export default class Header extends React.Component {
     )
   }
 }
+
+Header.propTypes = {
+  appTitle: React.PropTypes.string.isRequired,
+  appTagline: React.PropTypes.string.isRequired
+}
