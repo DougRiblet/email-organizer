@@ -21845,9 +21845,66 @@
 	        'div',
 	        { id: 'mailbag' },
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'MAILBAG'
+	          'table',
+	          { id: 'mailtable' },
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Organize'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Sender'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Domain'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Email'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Folder'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              'check'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { className: 'info' },
+	              'Someone'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { className: 'info' },
+	              'some.com'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { className: 'info' },
+	              'someone@some.com'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { className: 'info' },
+	              'Shopping'
+	            )
+	          )
 	        )
 	      );
 	    }

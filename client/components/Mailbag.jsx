@@ -8,7 +8,23 @@ export default class Mailbag extends React.Component {
   render () {
     return (
       <div id='mailbag'>
-        <p>MAILBAG</p>
+        <table id='mailtable'>
+          <tr>
+            <th>Organize</th>
+            <th>Sender</th>
+            <th>Domain</th>
+            <th>Email</th>
+            <th>Folder</th>
+          </tr>
+          <tr>
+            <td>check</td>
+            <td className='info'>Someone</td>
+            <td className='info'>some.com</td>
+            <td className='info'>someone@some.com</td>
+            <td className='info'>Shopping</td>
+          </tr>
+
+        </table>
       </div>
     )
   }

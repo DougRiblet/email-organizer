@@ -21,12 +21,26 @@ header {
   background-color: $gray2;
   color: $textmid;
   margin: 0px;
-  padding: 16px 200px;
+  padding: 20px 200px;
 }
 
 #mailbag {
   background-color: $gray1;
   color: $textmid;
   margin: 0px;
-  padding: 16px 200px;
+  padding: 20px 100px;
+}
+
+#mailtable {
+  width: 100%;
+  border-collapse: collapse;
+  th {
+    padding: 16px;
+    margin: 10px 0px;
+    text-align: left;
+  }
+  td {
+    @extend th;
+    &.info {background-color: white}
+  }
 }
