@@ -16,3 +16,17 @@ header {
   h2 { color: $textbold }
   h4 { color: $textmid }
 }
+
+#toolbar {
+  background-color: $gray2;
+  color: $textmid;
+  margin: 0px;
+  padding: 16px 200px;
+}
+
+#mailbag {
+  background-color: $gray1;
+  color: $textmid;
+  margin: 0px;
+  padding: 16px 200px;
+}

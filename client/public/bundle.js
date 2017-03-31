@@ -21835,7 +21835,7 @@
 	  function Mailbag() {
 	    _classCallCheck(this, Mailbag);
 
-	    return _possibleConstructorReturn(this, (Mailbag.__proto__ || Object.getPrototypeOf(Mailbag)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (Mailbag.__proto__ || Object.getPrototypeOf(Mailbag)).call(this));
 	  }
 
 	  _createClass(Mailbag, [{
