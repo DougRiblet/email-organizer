@@ -1,29 +1,29 @@
 import React from 'react'
+import MailRow from './MailRow'
 
 export default class Mailbag extends React.Component {
-  constructor () {
-    super()
+  displayRows () {
+    return this.props.emdata.map((item, index) => (
+      <MailRow key={'em' + index} item={item} />
+    ))
   }
 
   render () {
     return (
       <div id='mailbag'>
         <table id='mailtable'>
-          <tr>
-            <th>Organize</th>
-            <th>Sender</th>
-            <th>Domain</th>
-            <th>Email</th>
-            <th>Folder</th>
-          </tr>
-          <tr>
-            <td>check</td>
-            <td className='info'>Someone</td>
-            <td className='info'>some.com</td>
-            <td className='info'>someone@some.com</td>
-            <td className='info'>Shopping</td>
-          </tr>
-
+          <thead>
+            <tr>
+              <th>Organize</th>
+              <th>Sender</th>
+              <th>Domain</th>
+              <th>Email</th>
+              <th>Folder</th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.displayRows() }
+          </tbody>
         </table>
       </div>
     )

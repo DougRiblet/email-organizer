@@ -33,10 +33,10 @@ header {
 
 #mailtable {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 16px;
   th {
-    padding: 16px;
-    margin: 10px 0px;
+    padding: 12px;
     text-align: left;
   }
   td {

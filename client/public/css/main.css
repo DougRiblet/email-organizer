@@ -25,10 +25,10 @@ header {
 
 #mailtable {
   width: 100%;
-  border-collapse: collapse; }
+  border-collapse: separate;
+  border-spacing: 0 16px; }
   #mailtable th, #mailtable td {
-    padding: 16px;
-    margin: 10px 0px;
+    padding: 12px;
     text-align: left; }
   #mailtable td.info {
     background-color: white; }

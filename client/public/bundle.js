@@ -21821,6 +21821,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _MailRow = __webpack_require__(193);
+
+	var _MailRow2 = _interopRequireDefault(_MailRow);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21835,10 +21839,17 @@
 	  function Mailbag() {
 	    _classCallCheck(this, Mailbag);
 
-	    return _possibleConstructorReturn(this, (Mailbag.__proto__ || Object.getPrototypeOf(Mailbag)).call(this));
+	    return _possibleConstructorReturn(this, (Mailbag.__proto__ || Object.getPrototypeOf(Mailbag)).apply(this, arguments));
 	  }
 
 	  _createClass(Mailbag, [{
+	    key: 'displayRows',
+	    value: function displayRows() {
+	      return this.props.emdata.map(function (item, index) {
+	        return _react2.default.createElement(_MailRow2.default, { key: 'em' + index, item: item });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21848,62 +21859,42 @@
 	          'table',
 	          { id: 'mailtable' },
 	          _react2.default.createElement(
-	            'tr',
+	            'thead',
 	            null,
 	            _react2.default.createElement(
-	              'th',
+	              'tr',
 	              null,
-	              'Organize'
-	            ),
-	            _react2.default.createElement(
-	              'th',
-	              null,
-	              'Sender'
-	            ),
-	            _react2.default.createElement(
-	              'th',
-	              null,
-	              'Domain'
-	            ),
-	            _react2.default.createElement(
-	              'th',
-	              null,
-	              'Email'
-	            ),
-	            _react2.default.createElement(
-	              'th',
-	              null,
-	              'Folder'
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Organize'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Sender'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Domain'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Email'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Folder'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
-	            'tr',
+	            'tbody',
 	            null,
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              'check'
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              { className: 'info' },
-	              'Someone'
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              { className: 'info' },
-	              'some.com'
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              { className: 'info' },
-	              'someone@some.com'
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              { className: 'info' },
-	              'Shopping'
-	            )
+	            this.displayRows()
 	          )
 	        )
 	      );
@@ -23489,6 +23480,80 @@
 	    ctor.prototype.constructor = ctor;
 	  };
 	}
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(177);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MailRow = function (_React$Component) {
+	  _inherits(MailRow, _React$Component);
+
+	  function MailRow() {
+	    _classCallCheck(this, MailRow);
+
+	    return _possibleConstructorReturn(this, (MailRow.__proto__ || Object.getPrototypeOf(MailRow)).apply(this, arguments));
+	  }
+
+	  _createClass(MailRow, [{
+	    key: 'render',
+	    value: function render() {
+	      var item = this.props.item;
+	      return _react2.default.createElement(
+	        'tr',
+	        null,
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          item.organize ? 'check' : 'leave'
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          { className: 'info' },
+	          item.sender
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          { className: 'info' },
+	          item.domain
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          { className: 'info' },
+	          item.email
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          { className: 'info' },
+	          item.folder
+	        )
+	      );
+	    }
+	  }]);
+
+	  return MailRow;
+	}(_react2.default.Component);
+
+	exports.default = MailRow;
 
 /***/ }
 /******/ ]);
