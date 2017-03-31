@@ -16,6 +16,12 @@ module.exports = {
     chunks: false
   },
   module: {
+    rules: [
+      {
+        test: /\.json$/,
+        use: 'json-loader'
+      }
+    ],
     loaders: [
       {
         test: /\.jsx?$/,
