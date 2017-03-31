@@ -17,6 +17,7 @@ export default class App extends React.Component {
           appTitle={this.state.appTitle}
           appTagline={this.state.appTagline}
         />
+        <Main />
       </div>
     )
   }
