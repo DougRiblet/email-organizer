@@ -4,7 +4,12 @@ import MailRow from './MailRow'
 export default class Mailbag extends React.Component {
   displayRows () {
     return this.props.emdata.map((item, index) => (
-      <MailRow key={'em' + index} item={item} />
+      <MailRow
+        key={'em' + index}
+        item={item}
+        index={index}
+        toggleOrganize={this.props.toggleOrganize}
+      />
     ))
   }
 

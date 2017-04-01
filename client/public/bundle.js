@@ -21726,6 +21726,7 @@
 	    _this.state = {
 	      emdata: []
 	    };
+	    _this.toggleOrganize = _this.toggleOrganize.bind(_this);
 	    return _this;
 	  }
 
@@ -21736,13 +21737,31 @@
 	      this.setState({ emdata: cleandata });
 	    }
 	  }, {
+	    key: 'toggleOrganize',
+	    value: function toggleOrganize(item) {
+	      var revisedata = this.state.emdata.map(function (row) {
+	        if (row.email === item.email) {
+	          row.organize = !row.organize;
+	        }
+	        return row;
+	      });
+	      this.setState({ emdata: revisedata });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'main',
 	        null,
 	        _react2.default.createElement(_Toolbar2.default, null),
-	        _react2.default.createElement(_Mailbag2.default, { emdata: this.state.emdata })
+	        _react2.default.createElement(_Mailbag2.default, {
+	          emdata: this.state.emdata,
+	          toggleOrganize: function toggleOrganize(y) {
+	            return _this2.toggleOrganize(y);
+	          }
+	        })
 	      );
 	    }
 	  }]);
@@ -21845,8 +21864,15 @@
 	  _createClass(Mailbag, [{
 	    key: 'displayRows',
 	    value: function displayRows() {
+	      var _this2 = this;
+
 	      return this.props.emdata.map(function (item, index) {
-	        return _react2.default.createElement(_MailRow2.default, { key: 'em' + index, item: item });
+	        return _react2.default.createElement(_MailRow2.default, {
+	          key: 'em' + index,
+	          item: item,
+	          index: index,
+	          toggleOrganize: _this2.props.toggleOrganize
+	        });
 	      });
 	    }
 	  }, {
@@ -23511,20 +23537,33 @@
 	  function MailRow() {
 	    _classCallCheck(this, MailRow);
 
-	    return _possibleConstructorReturn(this, (MailRow.__proto__ || Object.getPrototypeOf(MailRow)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (MailRow.__proto__ || Object.getPrototypeOf(MailRow)).call(this));
+
+	    _this.handleOrganizeClick = _this.handleOrganizeClick.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(MailRow, [{
+	    key: 'handleOrganizeClick',
+	    value: function handleOrganizeClick() {
+	      this.props.toggleOrganize(this.props.item);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var item = this.props.item;
+	      var qorg = item.organize ? 'fa fa-check-square-o' : 'fa fa-square-o';
 	      return _react2.default.createElement(
 	        'tr',
 	        null,
 	        _react2.default.createElement(
 	          'td',
 	          null,
-	          item.organize ? 'check' : 'leave'
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'qorg', onClick: this.handleOrganizeClick },
+	            _react2.default.createElement('i', { className: qorg })
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'td',
@@ -23543,8 +23582,8 @@
 	        ),
 	        _react2.default.createElement(
 	          'td',
-	          { className: 'info' },
-	          item.folder
+	          { className: 'info folder' },
+	          'FOLDER'
 	        )
 	      );
 	    }

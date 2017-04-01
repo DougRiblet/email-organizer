@@ -10,6 +10,7 @@ export default class Main extends React.Component {
     this.state = {
       emdata: []
     }
+    this.toggleOrganize = this.toggleOrganize.bind(this)
   }
 
   componentDidMount () {
@@ -17,11 +18,24 @@ export default class Main extends React.Component {
     this.setState({emdata: cleandata})
   }
 
+  toggleOrganize (item) {
+    let revisedata = this.state.emdata.map(function (row) {
+      if (row.email === item.email) {
+        row.organize = !row.organize
+      }
+      return row
+    })
+    this.setState({emdata: revisedata})
+  }
+
   render () {
     return (
       <main>
         <Toolbar />
-        <Mailbag emdata={this.state.emdata} />
+        <Mailbag
+          emdata={this.state.emdata}
+          toggleOrganize={(y) => this.toggleOrganize(y)}
+        />
       </main>
     )
   }

@@ -32,3 +32,7 @@ header {
     text-align: left; }
   #mailtable td.info {
     background-color: white; }
+
+span.qorg {
+  padding: 4px 8px;
+  cursor: pointer; }
