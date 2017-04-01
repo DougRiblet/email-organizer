@@ -8,7 +8,9 @@ export default class Mailbag extends React.Component {
         key={'em' + index}
         item={item}
         index={index}
+        folders={this.props.folders}
         toggleOrganize={this.props.toggleOrganize}
+        changeFolder={this.props.changeFolder}
       />
     ))
   }
@@ -44,5 +46,8 @@ Mailbag.propTypes = {
       organize: React.PropTypes.bool.isRequired,
       sender: React.PropTypes.string.isRequired
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  folders: React.PropTypes.array.isRequired,
+  toggleOrganize: React.PropTypes.func.isRequired,
+  changeFolder: React.PropTypes.func.isRequired
 }

@@ -4,10 +4,23 @@ export default class MailRow extends React.Component {
   constructor () {
     super()
     this.handleOrganizeClick = this.handleOrganizeClick.bind(this)
+    this.handleSelectChange = this.handleSelectChange.bind(this)
   }
 
   handleOrganizeClick () {
     this.props.toggleOrganize(this.props.item)
+  }
+
+  handleSelectChange (event) {
+    console.log('####etv: ', event.target.value)
+    this.props.changeFolder(this.props.item.email, event.target.value)
+  }
+
+  generateFolders () {
+    let k = 'em' + this.props.index + 'fo'
+    return this.props.folders.sort().map(function (f, i) {
+      return <option value={f} key={k + i}>{f}</option>
+    })
   }
 
   render () {
@@ -24,9 +37,24 @@ export default class MailRow extends React.Component {
         <td className='info'>{item.domain}</td>
         <td className='info'>{item.email}</td>
         <td className='info folder'>
-          FOLDER
+          <select value={item.folder} onChange={this.handleSelectChange}>
+            {this.generateFolders()}
+          </select>
         </td>
       </tr>
     )
   }
+}
+
+MailRow.propTypes = {
+  item: React.PropTypes.shape({
+    domain: React.PropTypes.string.isRequired,
+    email: React.PropTypes.string.isRequired,
+    folder: React.PropTypes.string.isRequired,
+    organize: React.PropTypes.bool.isRequired,
+    sender: React.PropTypes.string.isRequired
+  }).isRequired,
+  folders: React.PropTypes.array.isRequired,
+  toggleOrganize: React.PropTypes.func.isRequired,
+  changeFolder: React.PropTypes.func.isRequired
 }

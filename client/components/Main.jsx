@@ -8,14 +8,17 @@ export default class Main extends React.Component {
   constructor () {
     super()
     this.state = {
-      emdata: []
+      emdata: [],
+      folders: []
     }
     this.toggleOrganize = this.toggleOrganize.bind(this)
+    this.changeFolder = this.changeFolder.bind(this)
   }
 
   componentDidMount () {
     let cleandata = JSON.parse(serialize(mockdata, {isJSON: true}))
-    this.setState({emdata: cleandata})
+    let uniquefolders = Array.from(new Set(cleandata.map(obj => obj.folder)))
+    this.setState({emdata: cleandata, folders: uniquefolders})
   }
 
   toggleOrganize (item) {
@@ -28,13 +31,26 @@ export default class Main extends React.Component {
     this.setState({emdata: revisedata})
   }
 
+  changeFolder (checkemail, newFolder) {
+    let revisedata = this.state.emdata.map(function (row) {
+      console.log('email/newfolder/row: ', checkemail, newFolder, row)
+      if (row.email === checkemail) {
+        row.folder = newFolder
+      }
+      return row
+    })
+    this.setState({emdata: revisedata})
+  }
+
   render () {
     return (
       <main>
         <Toolbar />
         <Mailbag
           emdata={this.state.emdata}
+          folders={this.state.folders}
           toggleOrganize={(y) => this.toggleOrganize(y)}
+          changeFolder={(y, z) => this.changeFolder(y, z)}
         />
       </main>
     )

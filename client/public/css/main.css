@@ -36,3 +36,6 @@ header {
 span.qorg {
   padding: 4px 8px;
   cursor: pointer; }
+
+select {
+  margin-right: 16px; }

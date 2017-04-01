@@ -21724,9 +21724,11 @@
 	    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
 
 	    _this.state = {
-	      emdata: []
+	      emdata: [],
+	      folders: []
 	    };
 	    _this.toggleOrganize = _this.toggleOrganize.bind(_this);
+	    _this.changeFolder = _this.changeFolder.bind(_this);
 	    return _this;
 	  }
 
@@ -21734,7 +21736,10 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var cleandata = JSON.parse((0, _serializeJavascript2.default)(_mock_rp_data2.default, { isJSON: true }));
-	      this.setState({ emdata: cleandata });
+	      var uniquefolders = Array.from(new Set(cleandata.map(function (obj) {
+	        return obj.folder;
+	      })));
+	      this.setState({ emdata: cleandata, folders: uniquefolders });
 	    }
 	  }, {
 	    key: 'toggleOrganize',
@@ -21742,6 +21747,18 @@
 	      var revisedata = this.state.emdata.map(function (row) {
 	        if (row.email === item.email) {
 	          row.organize = !row.organize;
+	        }
+	        return row;
+	      });
+	      this.setState({ emdata: revisedata });
+	    }
+	  }, {
+	    key: 'changeFolder',
+	    value: function changeFolder(checkemail, newFolder) {
+	      var revisedata = this.state.emdata.map(function (row) {
+	        console.log('email/newfolder/row: ', checkemail, newFolder, row);
+	        if (row.email === checkemail) {
+	          row.folder = newFolder;
 	        }
 	        return row;
 	      });
@@ -21758,8 +21775,12 @@
 	        _react2.default.createElement(_Toolbar2.default, null),
 	        _react2.default.createElement(_Mailbag2.default, {
 	          emdata: this.state.emdata,
+	          folders: this.state.folders,
 	          toggleOrganize: function toggleOrganize(y) {
 	            return _this2.toggleOrganize(y);
+	          },
+	          changeFolder: function changeFolder(y, z) {
+	            return _this2.changeFolder(y, z);
 	          }
 	        })
 	      );
@@ -21871,7 +21892,9 @@
 	          key: 'em' + index,
 	          item: item,
 	          index: index,
-	          toggleOrganize: _this2.props.toggleOrganize
+	          folders: _this2.props.folders,
+	          toggleOrganize: _this2.props.toggleOrganize,
+	          changeFolder: _this2.props.changeFolder
 	        });
 	      });
 	    }
@@ -21940,7 +21963,10 @@
 	    folder: _react2.default.PropTypes.string.isRequired,
 	    organize: _react2.default.PropTypes.bool.isRequired,
 	    sender: _react2.default.PropTypes.string.isRequired
-	  }).isRequired).isRequired
+	  }).isRequired).isRequired,
+	  folders: _react2.default.PropTypes.array.isRequired,
+	  toggleOrganize: _react2.default.PropTypes.func.isRequired,
+	  changeFolder: _react2.default.PropTypes.func.isRequired
 	};
 
 /***/ },
@@ -23540,6 +23566,7 @@
 	    var _this = _possibleConstructorReturn(this, (MailRow.__proto__ || Object.getPrototypeOf(MailRow)).call(this));
 
 	    _this.handleOrganizeClick = _this.handleOrganizeClick.bind(_this);
+	    _this.handleSelectChange = _this.handleSelectChange.bind(_this);
 	    return _this;
 	  }
 
@@ -23547,6 +23574,24 @@
 	    key: 'handleOrganizeClick',
 	    value: function handleOrganizeClick() {
 	      this.props.toggleOrganize(this.props.item);
+	    }
+	  }, {
+	    key: 'handleSelectChange',
+	    value: function handleSelectChange(event) {
+	      console.log('####etv: ', event.target.value);
+	      this.props.changeFolder(this.props.item.email, event.target.value);
+	    }
+	  }, {
+	    key: 'generateFolders',
+	    value: function generateFolders() {
+	      var k = 'em' + this.props.index + 'fo';
+	      return this.props.folders.sort().map(function (f, i) {
+	        return _react2.default.createElement(
+	          'option',
+	          { value: f, key: k + i },
+	          f
+	        );
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -23583,7 +23628,11 @@
 	        _react2.default.createElement(
 	          'td',
 	          { className: 'info folder' },
-	          'FOLDER'
+	          _react2.default.createElement(
+	            'select',
+	            { value: item.folder, onChange: this.handleSelectChange },
+	            this.generateFolders()
+	          )
 	        )
 	      );
 	    }
@@ -23593,6 +23642,20 @@
 	}(_react2.default.Component);
 
 	exports.default = MailRow;
+
+
+	MailRow.propTypes = {
+	  item: _react2.default.PropTypes.shape({
+	    domain: _react2.default.PropTypes.string.isRequired,
+	    email: _react2.default.PropTypes.string.isRequired,
+	    folder: _react2.default.PropTypes.string.isRequired,
+	    organize: _react2.default.PropTypes.bool.isRequired,
+	    sender: _react2.default.PropTypes.string.isRequired
+	  }).isRequired,
+	  folders: _react2.default.PropTypes.array.isRequired,
+	  toggleOrganize: _react2.default.PropTypes.func.isRequired,
+	  changeFolder: _react2.default.PropTypes.func.isRequired
+	};
 
 /***/ }
 /******/ ]);
