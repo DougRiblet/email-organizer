@@ -2,7 +2,7 @@
   "name": "email-organizer",
   "version": "1.0.0",
   "description": "Email organizer app using ReactJS",
-  "main": "index.js",
+  "main": "client/index.js",
   "scripts": {
     "start": "nodemon ./server/app.js",
     "build": "webpack --watch",

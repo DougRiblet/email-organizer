@@ -21596,7 +21596,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { id: 'outershell' },
+	        null,
 	        _react2.default.createElement(_Header2.default, {
 	          appTitle: this.state.appTitle,
 	          appTagline: this.state.appTagline
@@ -21725,10 +21725,14 @@
 
 	    _this.state = {
 	      emdata: [],
-	      folders: []
+	      folders: [],
+	      display: 'Show All',
+	      searchterm: ''
 	    };
 	    _this.toggleOrganize = _this.toggleOrganize.bind(_this);
 	    _this.changeFolder = _this.changeFolder.bind(_this);
+	    _this.changeDisplay = _this.changeDisplay.bind(_this);
+	    _this.changeSearchTerm = _this.changeSearchTerm.bind(_this);
 	    return _this;
 	  }
 
@@ -21753,6 +21757,16 @@
 	      this.setState({ emdata: revisedata });
 	    }
 	  }, {
+	    key: 'changeDisplay',
+	    value: function changeDisplay(newDisplay) {
+	      this.setState({ display: newDisplay });
+	    }
+	  }, {
+	    key: 'changeSearchTerm',
+	    value: function changeSearchTerm(newSearchTerm) {
+	      this.setState({ searchterm: newSearchTerm });
+	    }
+	  }, {
 	    key: 'changeFolder',
 	    value: function changeFolder(checkemail, newFolder) {
 	      var revisedata = this.state.emdata.map(function (row) {
@@ -21771,10 +21785,21 @@
 	      return _react2.default.createElement(
 	        'main',
 	        null,
-	        _react2.default.createElement(_Toolbar2.default, null),
+	        _react2.default.createElement(_Toolbar2.default, {
+	          display: this.state.display,
+	          searchterm: this.state.searchterm,
+	          changeDisplay: function changeDisplay(y) {
+	            return _this2.changeDisplay(y);
+	          },
+	          changeSearchTerm: function changeSearchTerm(y) {
+	            return _this2.changeSearchTerm(y);
+	          }
+	        }),
 	        _react2.default.createElement(_Mailbag2.default, {
 	          emdata: this.state.emdata,
 	          folders: this.state.folders,
+	          display: this.state.display,
+	          searchterm: this.state.searchterm,
 	          toggleOrganize: function toggleOrganize(y) {
 	            return _this2.toggleOrganize(y);
 	          },
@@ -21818,22 +21843,59 @@
 	var Toolbar = function (_React$Component) {
 	  _inherits(Toolbar, _React$Component);
 
-	  function Toolbar() {
+	  function Toolbar(props) {
 	    _classCallCheck(this, Toolbar);
 
-	    return _possibleConstructorReturn(this, (Toolbar.__proto__ || Object.getPrototypeOf(Toolbar)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Toolbar.__proto__ || Object.getPrototypeOf(Toolbar)).call(this, props));
+
+	    _this.handleSelectChange = _this.handleSelectChange.bind(_this);
+	    _this.handleSearchChange = _this.handleSearchChange.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Toolbar, [{
+	    key: 'handleSelectChange',
+	    value: function handleSelectChange(event) {
+	      this.props.changeDisplay(event.target.value);
+	    }
+	  }, {
+	    key: 'handleSearchChange',
+	    value: function handleSearchChange(event) {
+	      this.props.changeSearchTerm(event.target.value);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'toolbar' },
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'TOOLBAR'
+	          'div',
+	          { id: 'selectDisplay' },
+	          _react2.default.createElement(
+	            'select',
+	            { value: this.props.display, onChange: this.handleSelectChange },
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'Show All' },
+	              'Show All'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'Show Checked' },
+	              'Show Checked'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'searchBox' },
+	          _react2.default.createElement('input', {
+	            type: 'text',
+	            value: this.props.searchterm,
+	            onChange: this.handleSearchChange,
+	            placeholder: 'Search for a sender ...'
+	          })
 	        )
 	      );
 	    }
@@ -21843,6 +21905,14 @@
 	}(_react2.default.Component);
 
 	exports.default = Toolbar;
+
+
+	Toolbar.propTypes = {
+	  display: _react2.default.PropTypes.string.isRequired,
+	  searchterm: _react2.default.PropTypes.string.isRequired,
+	  changeDisplay: _react2.default.PropTypes.func.isRequired,
+	  changeSearchTerm: _react2.default.PropTypes.func.isRequired
+	};
 
 /***/ },
 /* 182 */
@@ -21875,10 +21945,14 @@
 	var Mailbag = function (_React$Component) {
 	  _inherits(Mailbag, _React$Component);
 
-	  function Mailbag() {
+	  function Mailbag(props) {
 	    _classCallCheck(this, Mailbag);
 
-	    return _possibleConstructorReturn(this, (Mailbag.__proto__ || Object.getPrototypeOf(Mailbag)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Mailbag.__proto__ || Object.getPrototypeOf(Mailbag)).call(this, props));
+
+	    _this.displayRows = _this.displayRows.bind(_this);
+	    _this.checkString = _this.checkString.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Mailbag, [{
@@ -21886,7 +21960,18 @@
 	    value: function displayRows() {
 	      var _this2 = this;
 
-	      return this.props.emdata.map(function (item, index) {
+	      var datapool = this.props.emdata;
+	      if (this.props.display === 'Show Checked') {
+	        datapool = datapool.filter(function (item) {
+	          return item.organize;
+	        });
+	      }
+	      if (this.props.searchterm) {
+	        datapool = datapool.filter(function (item) {
+	          return _this2.checkString(item, _this2.props.searchterm);
+	        });
+	      }
+	      return datapool.map(function (item, index) {
 	        return _react2.default.createElement(_MailRow2.default, {
 	          key: 'em' + index,
 	          item: item,
@@ -21896,6 +21981,11 @@
 	          changeFolder: _this2.props.changeFolder
 	        });
 	      });
+	    }
+	  }, {
+	    key: 'checkString',
+	    value: function checkString(item, term) {
+	      return item.domain.includes(term) || item.email.includes(term) || item.sender.includes(term);
 	    }
 	  }, {
 	    key: 'render',
@@ -21964,6 +22054,8 @@
 	    sender: _react2.default.PropTypes.string.isRequired
 	  }).isRequired).isRequired,
 	  folders: _react2.default.PropTypes.array.isRequired,
+	  display: _react2.default.PropTypes.string.isRequired,
+	  searchterm: _react2.default.PropTypes.string.isRequired,
 	  toggleOrganize: _react2.default.PropTypes.func.isRequired,
 	  changeFolder: _react2.default.PropTypes.func.isRequired
 	};

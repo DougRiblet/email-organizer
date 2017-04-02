@@ -21,14 +21,29 @@ header {
   background-color: $gray2;
   color: $textmid;
   margin: 0px;
-  padding: 20px 200px;
+  padding: 15px 120px;
+}
+
+#selectDisplay {
+  display: inline;
+  text-align: left;
+  margin-right: 160px;
+}
+
+#searchBox {
+  display: inline;
+  text-align: left;
+  input {
+    width: 240px;
+    padding: 4px;
+  }
 }
 
 #mailbag {
   background-color: $gray1;
   color: $textmid;
   margin: 0px;
-  padding: 20px 100px;
+  padding: 15px 80px 60px 80px;
 }
 
 #mailtable {

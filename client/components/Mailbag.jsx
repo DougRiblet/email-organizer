@@ -2,8 +2,20 @@ import React from 'react'
 import MailRow from './MailRow'
 
 export default class Mailbag extends React.Component {
+  constructor (props) {
+    super(props)
+    this.displayRows = this.displayRows.bind(this)
+    this.checkString = this.checkString.bind(this)
+  }
   displayRows () {
-    return this.props.emdata.map((item, index) => (
+    let datapool = this.props.emdata
+    if (this.props.display === 'Show Checked') {
+      datapool = datapool.filter(item => item.organize)
+    }
+    if (this.props.searchterm) {
+      datapool = datapool.filter(item => this.checkString(item, this.props.searchterm))
+    }
+    return datapool.map((item, index) => (
       <MailRow
         key={'em' + index}
         item={item}
@@ -13,6 +25,10 @@ export default class Mailbag extends React.Component {
         changeFolder={this.props.changeFolder}
       />
     ))
+  }
+
+  checkString (item, term) {
+    return item.domain.includes(term) || item.email.includes(term) || item.sender.includes(term)
   }
 
   render () {
@@ -48,6 +64,8 @@ Mailbag.propTypes = {
     }).isRequired
   ).isRequired,
   folders: React.PropTypes.array.isRequired,
+  display: React.PropTypes.string.isRequired,
+  searchterm: React.PropTypes.string.isRequired,
   toggleOrganize: React.PropTypes.func.isRequired,
   changeFolder: React.PropTypes.func.isRequired
 }
