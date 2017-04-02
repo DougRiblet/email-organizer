@@ -12,7 +12,6 @@ export default class MailRow extends React.Component {
   }
 
   handleSelectChange (event) {
-    console.log('####etv: ', event.target.value)
     this.props.changeFolder(this.props.item.email, event.target.value)
   }
 
@@ -24,6 +23,20 @@ export default class MailRow extends React.Component {
   }
 
   render () {
+    const folderColors = {
+      'Business': {borderRight: '10px solid LightPink'},
+      'Education': {borderRight: '10px solid BurlyWood'},
+      'Entertainment': {borderRight: '10px solid Orchid'},
+      'Finance': {borderRight: '10px solid Violet'},
+      'Groups': {borderRight: '10px solid LightSkyBlue'},
+      'Home': {borderRight: '10px solid Salmon'},
+      'Jobs': {borderRight: '10px solid IndianRed'},
+      'News': {borderRight: '10px solid RosyBrown'},
+      'Real Estate': {borderRight: '10px solid LightGreen'},
+      'Shopping': {borderRight: '10px solid Khaki'},
+      'Social Networking': {borderRight: '10px solid MediumSpringGreen'},
+      'Travel': {borderRight: '10px solid LightSeaGreen'}
+    }
     let item = this.props.item
     let qorg = item.organize ? 'fa fa-check-square-o' : 'fa fa-square-o'
     return (
@@ -36,7 +49,7 @@ export default class MailRow extends React.Component {
         <td className='info'>{item.sender}</td>
         <td className='info'>{item.domain}</td>
         <td className='info'>{item.email}</td>
-        <td className='info folder'>
+        <td className='info' style={folderColors[item.folder]}>
           <select value={item.folder} onChange={this.handleSelectChange}>
             {this.generateFolders()}
           </select>
@@ -54,6 +67,7 @@ MailRow.propTypes = {
     organize: React.PropTypes.bool.isRequired,
     sender: React.PropTypes.string.isRequired
   }).isRequired,
+  index: React.PropTypes.number.isRequired,
   folders: React.PropTypes.array.isRequired,
   toggleOrganize: React.PropTypes.func.isRequired,
   changeFolder: React.PropTypes.func.isRequired

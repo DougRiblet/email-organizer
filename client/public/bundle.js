@@ -21756,7 +21756,6 @@
 	    key: 'changeFolder',
 	    value: function changeFolder(checkemail, newFolder) {
 	      var revisedata = this.state.emdata.map(function (row) {
-	        console.log('email/newfolder/row: ', checkemail, newFolder, row);
 	        if (row.email === checkemail) {
 	          row.folder = newFolder;
 	        }
@@ -23578,7 +23577,6 @@
 	  }, {
 	    key: 'handleSelectChange',
 	    value: function handleSelectChange(event) {
-	      console.log('####etv: ', event.target.value);
 	      this.props.changeFolder(this.props.item.email, event.target.value);
 	    }
 	  }, {
@@ -23596,6 +23594,20 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var folderColors = {
+	        'Business': { borderRight: '10px solid LightPink' },
+	        'Education': { borderRight: '10px solid BurlyWood' },
+	        'Entertainment': { borderRight: '10px solid Orchid' },
+	        'Finance': { borderRight: '10px solid Violet' },
+	        'Groups': { borderRight: '10px solid LightSkyBlue' },
+	        'Home': { borderRight: '10px solid Salmon' },
+	        'Jobs': { borderRight: '10px solid IndianRed' },
+	        'News': { borderRight: '10px solid RosyBrown' },
+	        'Real Estate': { borderRight: '10px solid LightGreen' },
+	        'Shopping': { borderRight: '10px solid Khaki' },
+	        'Social Networking': { borderRight: '10px solid MediumSpringGreen' },
+	        'Travel': { borderRight: '10px solid LightSeaGreen' }
+	      };
 	      var item = this.props.item;
 	      var qorg = item.organize ? 'fa fa-check-square-o' : 'fa fa-square-o';
 	      return _react2.default.createElement(
@@ -23627,7 +23639,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'td',
-	          { className: 'info folder' },
+	          { className: 'info', style: folderColors[item.folder] },
 	          _react2.default.createElement(
 	            'select',
 	            { value: item.folder, onChange: this.handleSelectChange },
@@ -23652,6 +23664,7 @@
 	    organize: _react2.default.PropTypes.bool.isRequired,
 	    sender: _react2.default.PropTypes.string.isRequired
 	  }).isRequired,
+	  index: _react2.default.PropTypes.number.isRequired,
 	  folders: _react2.default.PropTypes.array.isRequired,
 	  toggleOrganize: _react2.default.PropTypes.func.isRequired,
 	  changeFolder: _react2.default.PropTypes.func.isRequired

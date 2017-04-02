@@ -33,7 +33,6 @@ export default class Main extends React.Component {
 
   changeFolder (checkemail, newFolder) {
     let revisedata = this.state.emdata.map(function (row) {
-      console.log('email/newfolder/row: ', checkemail, newFolder, row)
       if (row.email === checkemail) {
         row.folder = newFolder
       }
